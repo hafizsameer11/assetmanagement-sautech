@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('asset_registers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->string('filename')->nullable();
+            $table->json('columns');
+            $table->json('rows');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+
             $table->timestamps();
-              $table->enum('role', ['admin', 'auditor']);
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('asset_registers');
     }
 };
