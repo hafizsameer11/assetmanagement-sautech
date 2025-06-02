@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">User Management (Auditors)</h4>
         <a href="{{ route('users.create') }}" class="btn btn-primary">Add New Auditor</a>
