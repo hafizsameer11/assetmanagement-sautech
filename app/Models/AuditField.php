@@ -19,6 +19,7 @@ protected $fillable = [
     'is_required',
     'options',
     'created_by',
+    'is_scannable',
 ];
 
     public function client() {

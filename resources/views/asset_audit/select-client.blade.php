@@ -1,19 +1,21 @@
 @extends('layout.app')
-
 @section('content')
-<div class="container mt-4">
-    <h4>Select Client for Asset Audit</h4>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <div class="list-group mt-3">
-        @foreach($clients as $client)
-            <a href="{{ route('asset-audit.index', $client->id) }}" class="list-group-item list-group-item-action">
-                {{ $client->company_name }} ({{ $client->contact_person }})
-            </a>
-        @endforeach
+    <div class="container">
+        <h4>Select Client for Audit</h4>
+        <ul class="list-group">
+            @foreach($clients as $client)
+                <li class="list-group-item">
+                    <a href="{{ route('asset-audit.index', $client->id) }}">{{ $client->company_name }}</a>
+                </li>
+            @endforeach
+        </ul>
+        <h4>Select Client for Audit -- auditor</h4>
+        <ul class="list-group">
+            @foreach($clients as $client)
+                <li class="list-group-item">
+                    <a href="{{ route('manual-audit.form', $client->id) }}">{{ $client->company_name }}</a>
+                </li>
+            @endforeach
+        </ul>
     </div>
-</div>
 @endsection

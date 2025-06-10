@@ -16,10 +16,10 @@ class AuditFieldController extends Controller
         return view('audit_fields.index', compact('client', 'fields'));
     }
     public function selectClient()
-{
-    $clients = Client::orderBy('company_name')->get();
-    return view('audit_fields.select-client', compact('clients'));
-}
+    {
+        $clients = Client::orderBy('company_name')->get();
+        return view('audit_fields.select-client', compact('clients'));
+    }
 
 
     public function store(Request $request, $clientId)
@@ -40,6 +40,7 @@ class AuditFieldController extends Controller
             'is_required' => $request->has('is_required'),
             'options' => $request->type === 'dropdown' ? json_encode($request->options) : null,
             'created_by' => 1,
+            'is_scannable' => $request->has('is_scannable'),
         ]);
 
         return back()->with('success', 'Audit field added successfully.');

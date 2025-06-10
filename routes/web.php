@@ -4,6 +4,7 @@ use App\Http\Controllers\AssetAuditController;
 use App\Http\Controllers\AssetRegisterController;
 use App\Http\Controllers\AuditFieldController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ManualAuditController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,15 +54,19 @@ Route::prefix('clients/{clientId}/audit-fields')->controller(AuditFieldControlle
     Route::post('/{field}/delete', 'destroy')->name('audit-fields.destroy');
 });
 Route::get('/audit-fields', [AuditFieldController::class, 'selectClient'])->name('audit-fields.select');
+// Asset Audit
+Route::get('/asset-audits', [AssetAuditController::class, 'selectClient'])->name('asset-audit.select');
 
-
-//asset audit routes
 Route::prefix('clients/{clientId}/audits')->controller(AssetAuditController::class)->group(function () {
     Route::get('/', 'index')->name('asset-audit.index');
-    Route::post('/upload', 'upload')->name('asset-audit.upload');
+    Route::get('/upload', 'showUploadForm')->name('asset-audit.upload-form');
+    Route::post('/upload-preview', 'uploadPreview')->name('asset-audit.upload-preview');
+    Route::post('/upload-store', 'uploadStore')->name('asset-audit.upload-store');
     Route::post('/{audit}/delete', 'destroy')->name('asset-audit.destroy');
 });
-
-Route::get('/asset-audits', function () {
-    return view('asset_audit.select-client', ['clients' => App\Models\Client::orderBy('company_name')->get()]);
-})->name('asset-audit.select');
+// web.php
+Route::prefix('clients/{clientId}/manual-audit')->group(function () {
+    Route::get('/', [ManualAuditController::class, 'form'])->name('manual-audit.form');
+    Route::post('/store', [ManualAuditController::class, 'store'])->name('manual-audit.store');
+    Route::get('/history', [ManualAuditController::class, 'history'])->name('manual-audit.history');
+});

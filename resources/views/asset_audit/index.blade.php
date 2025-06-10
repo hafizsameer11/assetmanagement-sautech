@@ -8,17 +8,24 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('asset-audit.upload', $clientId) }}" method="POST" enctype="multipart/form-data" class="mb-4">
-        @csrf
-        <div class="row">
-            <div class="col-md-6">
-                <input type="file" name="csv_file" accept=".csv" class="form-control" required>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-primary">Upload CSV</button>
-            </div>
+    @if($fields->isEmpty())
+        <div class="alert alert-warning">
+            No audit fields are defined for this client yet.
+            <a href="{{ route('audit-fields.index', $clientId) }}" class="btn btn-sm btn-outline-primary ms-2">Create Fields</a>
         </div>
-    </form>
+    @else
+        <form action="{{ route('asset-audit.upload-preview', $clientId) }}" method="POST" enctype="multipart/form-data" class="mb-4">
+            @csrf
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="file" name="csv_file" accept=".csv" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary">Upload CSV</button>
+                </div>
+            </div>
+        </form>
+    @endif
 
     <h5>Uploaded Files</h5>
     <table class="table table-bordered">
