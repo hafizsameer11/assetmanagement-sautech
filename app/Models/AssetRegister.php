@@ -23,4 +23,9 @@ protected $fillable = [
     public function client() {
         return $this->belongsTo(Client::class);
     }
+    public function user()
+{
+    return $this->belongsTo(User::class, 'created_by');
+}
+
 }

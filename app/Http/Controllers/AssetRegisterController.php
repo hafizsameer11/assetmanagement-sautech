@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssetRegister;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,11 +32,17 @@ public function upload(Request $request, $clientId)
         'filename'    => $file->getClientOriginalName(),
         'columns'     => json_encode($headers),
         'rows'        => json_encode($rows),
-        'created_by'  => Auth::id() ,
+        'created_by'  => 1 ,//using 1 for now than will be replaced with Auth::id() later
     ]);
 
     return back()->with('success', 'Asset register uploaded successfully.');
 }
+public function selectClient()
+{
+    $clients = Client::orderBy('company_name')->get();
+    return view('asset_register.select-client', compact('clients'));
+}
+
 
 public function destroy($clientId, AssetRegister $register)
 {

@@ -1,46 +1,20 @@
-<div class="col-md-2 p-0 m-0 sidebar specific-scroll">
+<div class="col-md-2 p-0 m-0 sidebar specific-scroll" style="height: 100vh; overflow-y: auto;">
     <header>
-        <div class="container-1">
-            <img src="{{ asset('assets/img/logofinal.png') }}" class="logo">
+        <div class="container-1 text-center py-2">
+            <img src="{{ asset('assets/img/logofinal.png') }}" class="logo img-fluid" style="max-height: 50px;">
         </div>
     </header>
-    <div class="tabs">
 
-        <!-- for sub-tabs ________________________________________  -->
-        <!-- hostings -->
-        <a href="#" class="tabbtn" data-src="modules/hostandlic/index.php">Hosting and Licensing</a>
-        <div class="sub-tabs" style="display: none; padding-left: 20px;">
-            <a href="#" data-src="modules/hostandlic/hosting.php" class="w-100 sub-tabbtn">Hosting</a>
-            <a href="#" data-src="modules/hostandlic/login/register.php" class=" w-100 sub-tabbtn">Logins</a>
-            <a href="#" data-src="modules/spla/index.php" class="w-100 sub-tabbtn">SPLA Licensing</a>
-            <a href="#" data-src="modules/device/index.php" class="w-100 sub-tabbtn">Devices</a>
-        </div>
+    <div class="tabs px-2">
+        <a href="{{ route('users.index') }}" class="tabbtn d-block py-2">User Management</a>
+        <a href="{{ route('clients.index') }}" class="tabbtn d-block py-2">Client Management</a>
+        <a href="{{ route('asset-register.select') }}" class="tabbtn d-block py-2">Asset Management</a>
+        <a href="{{ route('audit-fields.select') }}" class="tabbtn d-block py-2">Audit Fields</a>
+        <a href="{{ route('asset-audit.select') }}" class="tabbtn d-block py-2">Asset Audits</a>
 
-        <!-- admin service -->
-        <a href="" class="tabbtn" data-src="modules/dashboard.php">Dashboard</a>
-        <a href="" class="tabbtn" data-src="modules/broker/index.php">Brokers</a>
-        <a href="" class="tabbtn" data-src="modules/clientinfo/index.php">Clients</a>
-        <a href="" class="tabbtn" data-src="modules/reports">Reports</a>
     </div>
-    <div>
-        <a href="?logout=1" class="logout-btn">Logout</a>
+
+    <div class="mt-auto px-2 py-3">
+        {{-- <a href="{{ route('logout') }}" class="logout-btn btn btn-sm btn-outline-danger w-100">Logout</a> --}}
     </div>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const tabButtons = document.querySelectorAll('.tabbtn');
-
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // Check if this tab has a next sibling with class `sub-tabs`
-            const next = this.nextElementSibling;
-            if (next && next.classList.contains('sub-tabs')) {
-                next.style.display = next.style.display === 'none' ? 'block' : 'none';
-            }
-        });
-    });
-});
-</script>
-
